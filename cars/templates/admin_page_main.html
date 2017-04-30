@@ -1,0 +1,78 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Cars - online cars">
+        <meta name="author" content="Alexandra Naumova">
+        <meta name="viewport" content="width-device-width, initial-scale=1">
+        <title>Прокат автомобилей(admin)</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <nav class="navbar navbar-my" role="navigation">
+  <div class="container-fluid">
+    <!—Название сайта и кнопка раскрытия меню для мобильных-->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <!—Само меню-->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/"> На главную</a></li>
+        <li class="active"><a href="/myadmin/"> Список автомобилей</a></li>
+        <li class="active"><a href="/myadmin/users"> Список пользователей</a></li>
+        <li class="active"><a href="#"> Список заказов</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+{% if flag %}
+<h3>Автомобиль добавлен</h3>
+{% endif %}
+<form action="/myadmin/add">
+<p><button type="submit" class="btn btn-success">Добавить автомобиль</button></p>
+</form>
+{% if cars %}
+  <h2>Предложения</h2>          
+  <table class="table table-hover">
+    <tbody>
+      {% for car in cars %}
+      <tr>
+          <div  align="center" class="row">
+              <td>
+                  <div align="left" class="col-sm-7">{% if car.image %}<img src="{{MEDIA_ROOT}}{{car.image.url}}" height="380" width="600">{% endif %}</div>
+                  <div class="col-sm-5">
+                      <br>
+                      <h2><b>{{car.firm}} {{car.model}}</b></h2>
+                      <h3>Тип коробки передач: {% if car.type_of_transmission %}механическая{% else %}автомат{% endif %}</h3>
+                      <h3>Цена за сутки: {{car.price}}р.</h3>
+                      {% comment %}<h3>PK: {{car.pk}}</h3>
+                      <h3>ID: {{car.id}}</h3>{% endcomment %}
+                      <form action="/myadmin/{{ car.id }}">
+                      <p><button type="submit" class="btn btn-warning">Изменить данные</button></p>
+                      </form>
+                      <form action="/myadmin/delete/{{ car.id }}">
+                      <p><button type="submit" class="btn btn-danger">Удалить из базы</button></p>
+                      </form>
+                  </div>
+              </td>
+          </div>
+      </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+{% else %}
+<h2>Пока нет добавленных автомобилей</h2>
+{% endif %}
+</div>
+<script type="text/javascript" scr="{% static 'js/bootstrap.min.js' %}"></script>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Cars - online cars">
+        <meta name="author" content="Alexandra Naumova">
+        <meta name="viewport" content="width-device-width, initial-scale=1">
+        <title>Прокат автомобилей</title>
+        {% comment %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">{% endcomment %}
+        {% comment %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">{% endcomment %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+
+    </head>
+    <body style="background: url({% static 'images/fone.jpg' %})">
+        <nav class="navbar navbar-my" role="navigation">
+  <div class="container-fluid">
+    <!—Название сайта и кнопка раскрытия меню для мобильных-->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/register/">Вход</a>
+    </div>
+
+    <!—Само меню-->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/"><span class = "glyphicon glyphicon-home"></span> Главная</a></li>
+        <li><a href="/register" data-toggle="tooltip" data-placement="auto" title="Зарегистрируйтесь, чтобы получить специальное предложение"><span class="glyphicon glyphicon-pencil"></span> Регистрация</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+        <h1>Вход</h1>
+        {% for e in form.non_field_errors %}
+        <div class="alert alert-danger">{{ e }}</div>
+        {% endfor %}
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <fieldset>
+                {% for field in form %}
+                <div class="control-group {% if field.errors %}has-error{% endif %}">
+                    <label class="control-label">{{ field.label }}</label>
+                    <div class="controls">{{ field }}</div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+            <br>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-success" >Войти</button>
+            </div>
+        {% comment %}{% csrf_token %}{% endcomment %}
+        </form>
+    </body>
+</html>

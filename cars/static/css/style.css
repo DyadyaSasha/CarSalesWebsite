@@ -1,0 +1,19 @@
+.navbar-my{
+	background: #958332;
+}
+
+.navbar-my ul li a{
+	color: #fff;
+}
+
+.navbar-my ul li a:hover{
+	background: #333;
+}
+
+.navbar-my .navbar-brand{
+	color: #fff;
+}
+
+.semi{
+	opacity: 0.5;
+}

@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Cars - online cars">
+        <meta name="author" content="Alexandra Naumova">
+        <meta name="viewport" content="width-device-width, initial-scale=1">
+        <title>Прокат автомобилей(admin)</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <div class="container">
+        <h1>Добавление автомобиля</h1>
+        {% for e in form.non_field_errors %}
+        <div class="alert alert-danger">{{ e }}</div>
+        {% endfor %}
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <fieldset>
+                {% for field in form %}
+                <div class="control-group {% if field.errors %}has-error{% endif %}">
+                    <label class="control-label">{{ field.label }}</label>
+                    <div class="controls">{{ field }}</div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+            <br>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-success" >Сохранить</button>
+            </div>
+        {% comment %}{% csrf_token %}{% endcomment %}
+        </form>
+        <script type="text/javascript" scr="{% static 'js/bootstrap.min.js' %}"></script>
+        </div>
+    </body>
+</html>
